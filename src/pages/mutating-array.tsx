@@ -1,5 +1,6 @@
-import Card from "../components/Card";
+import Card from "../components/mutating-card";
 import type { FruitItem, ActionType } from "../../lib/types/types";
+import Header from "../components/header";
 
 type ArrayMethod = {
   name: string;
@@ -122,36 +123,33 @@ const arrayMethods: ArrayMethod[] = [
     // Original: ['🍎', '🍌', '🍒', '🍇']`,
   },
   {
-    name: "Array.reverse()",
+    name: "Array.splice(2, 0, '🍊')",
     fruits: [
       { id: "apple", value: "🍎" },
       { id: "banana", value: "🍌" },
       { id: "cherry", value: "🍒" },
       { id: "grape", value: "🍇" },
       { id: "pineapple", value: "🍍" },
-      { id: "orange", value: "🍊" },
       { id: "mango", value: "🥭" },
       { id: "kiwi", value: "🥝" },
     ],
-    action: "reverse",
+    action: "splice",
     explanation:
-      "Reverses the elements of an array in place. The first array element becomes the last, and the last array element becomes the first.",
+      "Adds or removes elements from an array. This method changes the original array.",
     code: `
-    Syntax: array.reverse()
+    Syntax: array.splice(start, deleteCount, item1, item2, ...)
     Example:
     let fruits = ['🍎', '🍌', '🍒', '🍇'];
-    fruits.reverse();
-    // Result: ['🍇', '🍒', '🍌', '🍎']`,
+    fruits.splice(2, 0, '🍊');
+    // Result: ['🍎', '🍌', '🍊', '🍒', '🍇']`,
   },
 ];
 
-export default function Array() {
+export default function ArrayMutatingMethods() {
   return (
     <div className="min-h-screen geist-mono-font font-bold bg-neutral-900 text-zinc-300">
-      <h1 className=" flex justify-items-center justify-center items-center text-xl p-14">
-        Array Methods
-      </h1>
-      <div className="container flex-wrap justify-center items-center flex flex-row gap-10 mx-auto p-8">
+      <Header title="Array" subtitle="Mutating Methods" />
+      <div className="container flex-wrap justify-center items-center flex flex-row gap-6 mx-auto p-8">
         {arrayMethods.map((method) => (
           <Card key={method.name} {...method} />
         ))}

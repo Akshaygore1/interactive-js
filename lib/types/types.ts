@@ -5,4 +5,5 @@ export type ActionType =
   | "shift"
   | "unshift"
   | "slice"
-  | "reverse";
+  | "reverse"
+  | "splice";

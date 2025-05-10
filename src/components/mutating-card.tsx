@@ -10,6 +10,11 @@ const actionMap: Record<ActionType, (prev: FruitItem[]) => FruitItem[]> = {
   unshift: (prev) => [{ id: "banana", value: "🍌" }, ...prev],
   slice: (prev) => prev.slice(0, 3),
   reverse: (prev) => [...prev.reverse()],
+  splice: (prev) => {
+    const newFruits = [...prev];
+    newFruits.splice(2, 0, { id: "orange", value: "🍊" });
+    return [...newFruits];
+  },
 };
 
 function Card({
@@ -53,11 +58,11 @@ function Card({
 
   return (
     <div
-      className="bg-white w-96 h-96 flex rounded-2xl flex-col p-2 shadow-lg hover:shadow-xl transition-shadow duration-300 perspective-1000"
+      className="bg-white w-80 h-80 flex rounded-2xl flex-col p-2 shadow-lg hover:shadow-xl transition-shadow duration-300 perspective-1000"
       onMouseLeave={() => setIsFlipped(false)}
     >
       <div
-        className={`p-2 flex items-center justify-between rounded-xl text-neutral-900 font-semibold text-lg ${
+        className={`p-2 flex items-center justify-between rounded-xl text-neutral-900 font-semibold text-sm ${
           isFlipped ? "hidden" : "block"
         }`}
       >
@@ -98,7 +103,7 @@ function Card({
                     animate={{ scale: 1, opacity: 1 }}
                     exit={getExitAnimation()}
                     transition={{ duration: 0.3 }}
-                    className="bg-neutral-800 p-4 rounded-md w-14 h-14 flex items-center justify-center font-medium text-white"
+                    className="bg-neutral-800 p-4 rounded-md w-12 h-12 flex items-center justify-center font-medium text-white"
                   >
                     {item.value}
                   </motion.div>
@@ -138,7 +143,7 @@ function Card({
         <button
           onClick={handleAction}
           disabled={isAddOperation && isMaxSize}
-          className={`bg-yellow-300 border-2 border-neutral-900 text-neutral-900 px-4 py-2 transition-colors ${
+          className={`bg-yellow-300 text-sm border-2 border-neutral-900 text-neutral-900 px-4 py-2 transition-colors ${
             isAddOperation && isMaxSize
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer hover:bg-yellow-400"
